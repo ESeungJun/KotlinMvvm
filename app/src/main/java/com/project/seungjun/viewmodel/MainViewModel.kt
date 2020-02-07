@@ -20,7 +20,7 @@ class MainViewModel : BaseViewModel() {
 
 
     fun getTestData() {
-        testUsecase.requestTestGet({ onResponseTestGet(it) }, { onErrorTestGet(it) }, Unit, baseDisposable)
+        testUsecase.requestTestGet(this::onResponseTestGet, this::onErrorTestGet, Unit, baseDisposable)
     }
 
 
