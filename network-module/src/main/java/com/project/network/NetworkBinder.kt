@@ -25,9 +25,9 @@ class NetworkBinder {
         }
     }
 
-    fun setOnNext(next: (BaseApiResponse) -> Unit) {
+    fun setOnNext(next: (T: BaseApiResponse) -> Unit) {
         this.nextResponse = object : NetworkResponse.NextResponse {
-            override fun onNext(apiResponse: BaseApiResponse) {
+            override fun <T : BaseApiResponse> onNext(apiResponse: T) {
                 next(apiResponse)
             }
         }

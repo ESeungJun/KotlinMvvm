@@ -8,7 +8,7 @@ class NetworkResponse(
 ) : Consumer<BaseApiResponse> {
 
     interface NextResponse {
-        fun onNext(apiResponse: BaseApiResponse)
+        fun <T: BaseApiResponse> onNext(apiResponse: T)
     }
 
 

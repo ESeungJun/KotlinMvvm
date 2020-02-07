@@ -1,4 +1,4 @@
-package com.project.utils.room
+package com.project.seungjun.room
 
 import androidx.room.Delete
 import androidx.room.Insert

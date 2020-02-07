@@ -16,7 +16,7 @@ object RetrofitClient{
     private val client by lazy {
         OkHttpClient.Builder().apply {
             addInterceptor(HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY })
-            addInterceptor{ chain -> createHeaderChain(chain) }
+//            addInterceptor{ chain -> createHeaderChain(chain) }
         }.build()
     }
 
@@ -37,6 +37,7 @@ object RetrofitClient{
     }
 
 
+    // 헤더 셋팅시에만 사용
     private fun createHeaderChain(chain: Interceptor.Chain): Response {
         val request = chain.request()
 

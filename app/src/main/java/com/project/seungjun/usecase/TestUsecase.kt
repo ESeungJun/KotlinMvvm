@@ -1,4 +1,4 @@
-package com.project.seungjun.model.usecase
+package com.project.seungjun.usecase
 
 import com.project.network.NetworkBinder
 import com.project.network.RetrofitClient
@@ -9,7 +9,7 @@ import io.reactivex.disposables.CompositeDisposable
 class TestUsecase {
 
 
-    fun requestTestGet(onNext: (BaseApiResponse) -> Unit, onError: (Throwable) -> Unit, request: Any, disposable: CompositeDisposable) {
+    fun requestTestGet(onNext: (T: BaseApiResponse) -> Unit, onError: (Throwable) -> Unit, request: Any, disposable: CompositeDisposable) {
         NetworkBinder().apply {
             setDisposable(disposable)
             setOnNext(onNext)

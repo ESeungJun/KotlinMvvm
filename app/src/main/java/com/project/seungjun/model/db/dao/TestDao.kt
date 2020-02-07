@@ -3,7 +3,7 @@ package com.project.seungjun.model.db.dao
 import androidx.room.Dao
 import androidx.room.Query
 import com.project.seungjun.model.db.entity.TestEntity
-import com.project.utils.room.BaseDao
+import com.project.seungjun.room.BaseDao
 import io.reactivex.Maybe
 
 @Dao

@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.project.network.response.BaseApiResponse
 import com.project.seungjun.BaseViewModel
-import com.project.seungjun.model.usecase.TestUsecase
+import com.project.seungjun.usecase.TestUsecase
 
 class MainViewModel : BaseViewModel() {
 

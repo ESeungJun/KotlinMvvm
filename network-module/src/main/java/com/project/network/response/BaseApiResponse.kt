@@ -2,10 +2,11 @@ package com.project.network.response
 
 import com.google.gson.annotations.SerializedName
 
-data class BaseApiResponse (
-    @SerializedName("")
-    val code: Int,
+open class BaseApiResponse {
 
     @SerializedName("")
-    val message: String
-)
+    val code: Int = 0
+
+    @SerializedName("")
+    val message: String = ""
+}
