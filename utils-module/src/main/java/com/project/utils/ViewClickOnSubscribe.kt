@@ -14,7 +14,7 @@ class ViewClickOnSubscribe(private val view: View) : ObservableOnSubscribe<View>
                 emitter.onNext(it)
         }
 
-        view.setOnClickListener { listener }
+        view.setOnClickListener(listener)
 
         emitter.setDisposable(object : MainThreadDisposable() {
             override fun onDispose() {

@@ -34,7 +34,7 @@ class NetworkBinder {
     }
 
 
-    fun execute(request: Single<BaseApiResponse>) {
+    fun <T: BaseApiResponse> execute(request: Single<T>) {
         val callApiRequest = request.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
 
         disposable.add(
