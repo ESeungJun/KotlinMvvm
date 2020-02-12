@@ -4,17 +4,17 @@ import com.project.network.response.BaseApiResponse
 import io.reactivex.functions.Consumer
 
 class NetworkResponse(
-    private var nextResponse: NextResponse
+    private var next: OnNext
 ) : Consumer<BaseApiResponse> {
 
-    interface NextResponse {
-        fun <T: BaseApiResponse> onNext(apiResponse: T)
+    interface OnNext {
+        fun onNext(apiResponse: BaseApiResponse)
     }
 
 
     override fun accept(response: BaseApiResponse?) {
         response?.let {
-            nextResponse.onNext(it)
+            next.onNext(it)
             return
         }
     }
@@ -22,16 +22,16 @@ class NetworkResponse(
 
 
 class NetworkError(
-    private var errorResponse: ErrorResponse
+    private var error: OnError
 ) : Consumer<Throwable> {
 
-    interface ErrorResponse {
+    interface OnError {
         fun onError(throwable: Throwable)
     }
 
     override fun accept(throwable: Throwable?) {
         throwable?.let {
-            errorResponse.onError(throwable)
+            error.onError(throwable)
             return
         }
     }

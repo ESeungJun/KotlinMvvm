@@ -8,7 +8,7 @@ import com.project.seungjun.databinding.ItemTestViewBinding
 import com.project.seungjun.model.vo.TestVo
 import com.project.seungjun.view.viewholder.TestViewHolder
 
-class TestPagedListAdapter : PagedListAdapter<TestVo, TestViewHolder>(HomeListDiffUtils()) {
+class TestPagedListAdapter : PagedListAdapter<TestVo, TestViewHolder>(TestDiffUtils()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TestViewHolder {
         val binding = ItemTestViewBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -22,7 +22,7 @@ class TestPagedListAdapter : PagedListAdapter<TestVo, TestViewHolder>(HomeListDi
     }
 
 
-    class HomeListDiffUtils : DiffUtil.ItemCallback<TestVo>() {
+    class TestDiffUtils : DiffUtil.ItemCallback<TestVo>() {
         override fun areItemsTheSame(oldItem: TestVo, newItem: TestVo)
                 = oldItem.testInt == newItem.testInt
 

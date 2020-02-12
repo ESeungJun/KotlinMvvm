@@ -9,12 +9,11 @@ class ViewClickOnSubscribe(private val view: View) : ObservableOnSubscribe<View>
 
 
     override fun subscribe(emitter: ObservableEmitter<View>) {
-        val listener = View.OnClickListener {
+
+        view.setOnClickListener {
             if (!emitter.isDisposed)
                 emitter.onNext(it)
         }
-
-        view.setOnClickListener(listener)
 
         emitter.setDisposable(object : MainThreadDisposable() {
             override fun onDispose() {

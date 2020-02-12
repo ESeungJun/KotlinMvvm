@@ -1,6 +1,7 @@
 package com.project.seungjun
 
 import androidx.lifecycle.ViewModel
+import com.project.network.NetworkBinder
 import io.reactivex.disposables.CompositeDisposable
 
 open class BaseViewModel : ViewModel() {

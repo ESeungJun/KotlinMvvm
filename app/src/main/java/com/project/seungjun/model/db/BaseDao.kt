@@ -1,4 +1,4 @@
-package com.project.seungjun.room
+package com.project.seungjun.model.db
 
 import androidx.room.Delete
 import androidx.room.Insert

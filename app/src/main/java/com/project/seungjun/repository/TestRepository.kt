@@ -4,28 +4,21 @@ import androidx.lifecycle.Transformations
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.project.network.NetworkBinder
-import com.project.seungjun.etc.ConstValue
+import com.project.seungjun.model.network.ApiController
 import com.project.seungjun.model.vo.TestLiveDataVo
-import com.project.seungjun.paging.TestDataFactory
-import io.reactivex.disposables.CompositeDisposable
+import com.project.seungjun.repository.paging.TestDataFactory
 import java.util.concurrent.Executors
 
 class TestRepository {
 
 
-    fun requestTest(error: (Throwable) -> Unit, params: Map<String, String>, disposable: CompositeDisposable): TestLiveDataVo {
-
-        val binder = NetworkBinder().apply {
-            setDisposable(disposable)
-            setOnError(error)
-        }
-
+    fun requestTest(binder: NetworkBinder, params: Map<String, String>): TestLiveDataVo {
         val testDataFactory = TestDataFactory(params, binder)
 
         val pagedListConfig = PagedList.Config.Builder().apply {
-            setPageSize(ConstValue.PAGING_SIZE)
-            setInitialLoadSizeHint(ConstValue.LOAD_HINT_COUNT)
-            setPrefetchDistance(ConstValue.PREFETCH_DISTANCE)
+            setPageSize(PAGING_SIZE)
+            setInitialLoadSizeHint(LOAD_HINT_COUNT)
+            setPrefetchDistance(PREFETCH_DISTANCE)
             setEnablePlaceholders(false)
         }.build()
 
@@ -39,5 +32,16 @@ class TestRepository {
         })
 
         return TestLiveDataVo(test, pagedData)
+    }
+
+
+    fun requestTestGet(binder: NetworkBinder) {
+        binder.execute(ApiController.testApiService.testGet())
+    }
+
+    companion object {
+        const val PAGING_SIZE = 20
+        const val LOAD_HINT_COUNT = 50
+        const val PREFETCH_DISTANCE = 10
     }
 }

@@ -1,12 +1,11 @@
-package com.project.seungjun.paging
+package com.project.seungjun.repository.paging
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.PageKeyedDataSource
 import com.project.network.NetworkBinder
-import com.project.network.RetrofitClient
 import com.project.network.response.BaseApiResponse
-import com.project.seungjun.model.network.api.TestApiService
+import com.project.seungjun.model.network.ApiController
 import com.project.seungjun.model.vo.TestVo
 
 class TestDataSource(
@@ -27,14 +26,14 @@ class TestDataSource(
         networkBinder.setOnNext {
             callback.onResult(onResponse(it), 0, 0)
         }
-        networkBinder.execute(RetrofitClient.build().create(TestApiService::class.java).testGet())
+        networkBinder.execute(ApiController.testApiService.testGet())
     }
 
     override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, TestVo>) {
         networkBinder.setOnNext {
             callback.onResult(onResponse(it), params.key + 1)
         }
-        networkBinder.execute(RetrofitClient.build().create(TestApiService::class.java).testGet())
+        networkBinder.execute(ApiController.testApiService.testGet())
     }
 
     override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, TestVo>) {

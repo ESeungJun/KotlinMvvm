@@ -9,8 +9,8 @@ import io.reactivex.schedulers.Schedulers
 class NetworkBinder {
 
     private lateinit var disposable: CompositeDisposable
-    private lateinit var nextResponse: NetworkResponse.NextResponse
-    private lateinit var errorResponse: NetworkError.ErrorResponse
+    private lateinit var nextResponse: NetworkResponse.OnNext
+    private lateinit var errorResponse: NetworkError.OnError
 
 
     fun setDisposable(disposable: CompositeDisposable) {
@@ -18,7 +18,7 @@ class NetworkBinder {
     }
 
     fun setOnError(error: (Throwable) -> Unit) {
-        this.errorResponse = object : NetworkError.ErrorResponse {
+        this.errorResponse = object : NetworkError.OnError {
             override fun onError(throwable: Throwable) {
                 error(throwable)
             }
@@ -26,8 +26,8 @@ class NetworkBinder {
     }
 
     fun setOnNext(next: (T: BaseApiResponse) -> Unit) {
-        this.nextResponse = object : NetworkResponse.NextResponse {
-            override fun <T : BaseApiResponse> onNext(apiResponse: T) {
+        this.nextResponse = object : NetworkResponse.OnNext {
+            override fun onNext(apiResponse: BaseApiResponse) {
                 next(apiResponse)
             }
         }
