@@ -4,8 +4,9 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import androidx.lifecycle.ViewModel
 
-abstract class BaseActivityWithVM<LAYOUT: ViewDataBinding, VM: BaseViewModel> : AppCompatActivity() {
+abstract class BaseActivityWithVM<LAYOUT: ViewDataBinding, VM: ViewModel> : AppCompatActivity() {
 
     lateinit var dataBinding: LAYOUT
 
