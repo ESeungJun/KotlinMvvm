@@ -4,9 +4,9 @@ import com.google.gson.annotations.SerializedName
 
 open class BaseApiResponse {
 
-    @SerializedName("")
+    @SerializedName("code")
     val code: Int = 0
 
-    @SerializedName("")
+    @SerializedName("message")
     val message: String = ""
 }

@@ -10,7 +10,7 @@ interface TestApiService {
     @POST("")
     fun testPost(@Body body: Any): Single<BaseApiResponse>
 
-    @GET("")
+    @GET("search/users?q=a&page=1&per_page=2")
     fun testGet(): Single<BaseApiResponse>
 
     @GET("{id}")
