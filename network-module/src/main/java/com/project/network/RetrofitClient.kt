@@ -1,22 +1,21 @@
 package com.project.network
 
+import android.os.Build
 import com.google.gson.GsonBuilder
-import okhttp3.Headers
-import okhttp3.Interceptor
-import okhttp3.OkHttpClient
-import okhttp3.Response
+import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
+import javax.net.ssl.SSLContext
 
 
 object RetrofitClient{
 
-    const val CONNECT_TIMEOUT = 10L
-    const val WRITE_TIMEOUT = 10L
-    const val READ_TIMEOUT = 10L
+    private const val CONNECT_TIMEOUT = 10L
+    private const val WRITE_TIMEOUT = 10L
+    private const val READ_TIMEOUT = 10L
 
 
     private val client by lazy {
@@ -28,6 +27,32 @@ object RetrofitClient{
                 if (BuildConfig.DEBUG)
                     level = HttpLoggingInterceptor.Level.BODY
             })
+
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP_MR1) {
+
+                try {
+                    val sslContext = SSLContext.getInstance("TLSv1.2").apply {
+                        init(null, null, null)
+                    }
+
+                    sslSocketFactory(TLSSocketFactory(sslContext.socketFactory))
+
+                    val cs = ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
+                        .tlsVersions(TlsVersion.TLS_1_2)
+                        .build()
+
+                    val specs: MutableList<ConnectionSpec> = mutableListOf()
+                    specs.add(cs)
+                    specs.add(ConnectionSpec.COMPATIBLE_TLS)
+                    specs.add(ConnectionSpec.CLEARTEXT)
+
+                    connectionSpecs(specs)
+
+                } catch (e: Exception){
+                    e.printStackTrace()
+                }
+
+            }
 
 //            addInterceptor{ chain -> createHeaderChain(chain) }
         }.build()
@@ -62,14 +87,10 @@ object RetrofitClient{
             .build())
     }
 
-    private fun buildClient() = Retrofit.Builder().apply {
+    fun build() = Retrofit.Builder().apply {
         addConverterFactory(GsonConverterFactory.create(gson))
         addCallAdapterFactory(RxJava2CallAdapterFactory.createAsync())
         baseUrl("https://api.github.com/")
         client(client)
     }.build()
-
-
-
-    fun build() = buildClient()
 }
