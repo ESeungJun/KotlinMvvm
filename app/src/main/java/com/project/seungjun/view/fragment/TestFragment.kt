@@ -30,14 +30,7 @@ class TestFragment : BaseFragment<FragmentTestBinding, TestFragmentViewModel>() 
 
     companion object {
 
-        private var instance: TestFragment? = null
-
-        fun newInstance(): TestFragment {
-            if (instance == null)
-                instance = TestFragment()
-
-            return instance!!
-        }
-
+        fun newInstance() = TestFragment()
+        
     }
 }

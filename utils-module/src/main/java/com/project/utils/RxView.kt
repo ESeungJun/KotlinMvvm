@@ -10,7 +10,7 @@ import java.util.function.Consumer
 
 object RxView {
 
-    private const val LOCK_TIEM = 1000L
+    private const val LOCK_TIME = 1000L
     private val TIME_UNIT = TimeUnit.MILLISECONDS
 
 
@@ -19,7 +19,7 @@ object RxView {
 
     fun click(view: View, onNext: (View) -> Unit): Disposable {
         return createObservableView(view)
-            .throttleFirst(LOCK_TIEM, TIME_UNIT, AndroidSchedulers.mainThread())
+            .throttleFirst(LOCK_TIME, TIME_UNIT, AndroidSchedulers.mainThread())
             .subscribe(onNext)
     }
 
