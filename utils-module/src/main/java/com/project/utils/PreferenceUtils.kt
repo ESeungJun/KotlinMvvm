@@ -5,14 +5,8 @@ import android.content.SharedPreferences
 
 class PreferenceUtils(context: Context) {
 
-    private var preferences: SharedPreferences
-    private var preEditor: SharedPreferences.Editor
-
-    init {
-        preferences = context.getSharedPreferences("TEMP", Context.MODE_PRIVATE)
-        preEditor = preferences.edit()
-    }
-
+    private val preferences: SharedPreferences by lazy { context.getSharedPreferences("TEMP", Context.MODE_PRIVATE) }
+    private val preEditor: SharedPreferences.Editor by lazy { preferences.edit() }
 
     var saveBoolean: Boolean
         get() = preferences.getBoolean(KEY_TEMP, false)
@@ -59,11 +53,9 @@ class PreferenceUtils(context: Context) {
     companion object {
         private val KEY_TEMP = "KEY_TEMP"
 
-
         private var instance: PreferenceUtils? = null
 
-        fun getInstance(context: Context) = instance
-            ?: PreferenceUtils(context).also { instance = it }
+        fun getInstance(context: Context) = instance ?: PreferenceUtils(context).also { instance = it }
     }
 
 }
