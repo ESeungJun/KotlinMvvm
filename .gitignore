@@ -96,6 +96,8 @@ obj/
 .idea/runConfigurations.xml
 .idea/codeStyles/Project.xml
 .idea/codeStyles/codeStyleConfig.xml
+.idea/.gitignore
+.idea
 
 
 # OS-specific files
