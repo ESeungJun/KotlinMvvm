@@ -31,7 +31,7 @@ class TLSSocketFactory(private val factory: SSLSocketFactory) : SSLSocketFactory
 
     private fun patch(socket: Socket): Socket {
         if (socket is SSLSocket) {
-            socket.setEnabledProtocols(TLS_V12_ONLY)
+            socket.enabledProtocols = TLS_V12_ONLY
         }
 
         return socket

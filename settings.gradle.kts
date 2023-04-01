@@ -1,0 +1,2 @@
+include (":app", ":network-module", ":utils-module")
+rootProject.name="SeungJunProject"

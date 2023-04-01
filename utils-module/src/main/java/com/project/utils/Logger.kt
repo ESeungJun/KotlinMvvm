@@ -10,18 +10,21 @@ object Logger {
     private val isDebug = BuildConfig.DEBUG
 
     fun log(tag: String, message: String) {
-        if (isDebug)
+        if (isDebug) {
             Log.d("[$tag] ", message)
+        }
     }
 
     fun error(tag: String, message: String) {
-        if (isDebug)
+        if (isDebug) {
             Log.e("[$tag] ", message)
+        }
     }
 
     fun error(tag: String, message: String, tr: Throwable) {
-        if (isDebug)
+        if (isDebug) {
             Log.e("[$tag] ", message, tr)
+        }
     }
 
 }

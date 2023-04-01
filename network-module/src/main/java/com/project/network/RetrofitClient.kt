@@ -5,7 +5,6 @@ import com.google.gson.GsonBuilder
 import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.net.ssl.SSLContext
@@ -24,19 +23,13 @@ object RetrofitClient{
                 connectTimeout(CONNECT_TIMEOUT, TimeUnit.SECONDS)
                 writeTimeout(WRITE_TIMEOUT, TimeUnit.SECONDS)
                 readTimeout(READ_TIMEOUT, TimeUnit.SECONDS)
-                if (BuildConfig.DEBUG)
+                if (BuildConfig.DEBUG) {
                     level = HttpLoggingInterceptor.Level.BODY
+                }
             })
 
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP_MR1) {
-
                 try {
-                    val sslContext = SSLContext.getInstance("TLSv1.2").apply {
-                        init(null, null, null)
-                    }
-
-                    sslSocketFactory(TLSSocketFactory(sslContext.socketFactory))
-
                     val cs = ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
                         .tlsVersions(TlsVersion.TLS_1_2)
                         .build()
@@ -69,9 +62,9 @@ object RetrofitClient{
 
 
     private fun createBaseHeader() {
-        if(baseHeader == null)
-            baseHeader = hashMapOf<String, String>()
-                .also {}
+        if(baseHeader == null) {
+            baseHeader = hashMapOf<String, String>().also {}
+        }
     }
 
 
@@ -89,7 +82,6 @@ object RetrofitClient{
 
     fun build() = Retrofit.Builder().apply {
         addConverterFactory(GsonConverterFactory.create(gson))
-        addCallAdapterFactory(RxJava2CallAdapterFactory.createAsync())
         baseUrl("https://api.github.com/")
         client(client)
     }.build()
